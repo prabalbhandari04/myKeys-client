@@ -27,7 +27,7 @@ function TableDetails() {
       setData(availableData);
         console.log(availableData)
     })
-  }, [])
+  })
     return (
         <div >
             <Container maxWidth={'lg'}>

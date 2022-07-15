@@ -12,7 +12,7 @@ import Button from "@mui/material/Button";
 import Dialog from "@mui/material/Dialog";
 import DialogActions from "@mui/material/DialogActions";
 
-
+import {showErrMsg, showSuccessMsg} from '../utils/notification/Notification'
 import DialogContent from "@mui/material/DialogContent";
 import DialogTitle from "@mui/material/DialogTitle";
 import {Grid,Typography} from "@material-ui/core";
@@ -22,7 +22,15 @@ import FormControl from '@mui/material/FormControl';
 import Select from '@mui/material/Select';
 import InputLabel from '@mui/material/InputLabel';
 //-------------------------------------------
+import axios from 'axios';
 
+const initialState = {
+  title: '',
+  url: '',
+  key: '',
+  err: '',
+  success: ''
+}
 
 
 const AddCred = () => {
@@ -33,55 +41,28 @@ const AddCred = () => {
     const [open, setOpen] = useState(false);
 
     //organization name and description
-    const [organizationName, setOrganizationName] = useState('');
-  
-    const [state, setState] = useState({
-        name: '',
-        phone: '',
-        address: '',
-        organization: organizationName
-      });
+    const [cred, setCred] = useState(initialState)
+    const {title,url,key, err, success} = cred
 
-    
-      const {name,  phone, address} = state;
-
+    const handleInputChange = e => {
+      const {name, value} = e.target
+      setCred({...cred, [name]:value, err: '', success: ''})
+  }
 
   
-    //Handling Change for Organization name and Team Leader 
-    
-    const handleChangeOrganization = (e) => {
-      setOrganizationName(e.target.value);
-    }
 
-  
-      
-
-    const handleInputChange = (e) => {
-        let {name, value} = e.target;
-        setState({ ...state,  [name]: value});
-    }
+  const handleSubmit = async e => {
+      e.preventDefault()
+      try {
+          const res = await axios.post('https://mykeys.onrender.com/cred/add', {title,url,key})
+          setCred({...cred, err: '', success: res.data.msg})
 
 
-    const handleSubmit = (e) => {
-
-        e.preventDefault();
-
-        let data = {name: name, phone: phone, address: address, organization: organizationName}     
-
-
-        setState({
-            name: '',
-            phone: '',
-            address: '',
-          });
-
-        setOrganizationName('');
-        setOpen(false);
-    
+      } catch (err) {
+          err.response.data.msg && 
+          setCred({...cred, err: err.response.data.msg, success: ''})
       }
-
-  
-
+  }
 
   const opensessame = () =>{ 
     handleClickOpen()
@@ -92,14 +73,6 @@ const AddCred = () => {
   };
 
   const handleClose = () => {
-    setState({
-        name: '',
-        phone: '',
-        address: '',
-        organization: '',
-    })
-
-    setOrganizationName('');
     setOpen(false);
   };
 
@@ -133,27 +106,26 @@ const cancelhandel = (e)=>{
         <Typography variant="body2" style={{color: 'white'}} component="p" gutterBottom>
           
           </Typography> 
-
-
-      
+          {err && showErrMsg(err)}
+          {success && showSuccessMsg(success)}
                 <form id="customer-form-id" onSubmit={handleSubmit}>
             <Grid container spacing={1} style={{color: 'white', marginTop: '8px'}}>
 
                 <Grid item xs={12}>
-                    <TextField name="name" sx={{ input: { color: 'black', background: 'white' } }} InputLabelProps={{ style: { color: 'black' } }} value={name} onChange={handleInputChange}    placeholder="Name" label="Name" variant="filled" fullWidth required autoComplete='off' />
+                    <TextField name="title" sx={{ input: { color: 'black', background: 'white' } }} InputLabelProps={{ style: { color: 'black' } }} value={title} onChange={handleInputChange}    placeholder="Title" label="Title" variant="filled" fullWidth required autoComplete='off' />
                 </Grid>
 
 
                 <Grid item xs={12}>
-                    <TextField type="number" name="phone" sx={{ input: { color: 'black', background: 'white' } }} InputLabelProps={{ style: { color: 'black' } }} value={phone} onChange={handleInputChange}    placeholder="Phone" label="Phone" variant="filled" fullWidth required autoComplete='off' />
+                    <TextField type="text" name="url" sx={{ input: { color: 'black', background: 'white' } }} InputLabelProps={{ style: { color: 'black' } }} value={url} onChange={handleInputChange}    placeholder="URL" label="URL" variant="filled" fullWidth required autoComplete='off' />
                 </Grid>
 
 
                 <Grid item xs={12}>
-                    <TextField name="address" sx={{ input: { color: 'black', background: 'white' } }} InputLabelProps={{ style: { color: 'black' } }} value={address} onChange={handleInputChange}    placeholder="Address" label="Address" variant="filled" fullWidth required autoComplete='off' />
+                    <TextField type="text" name="key" sx={{ input: { color: 'black', background: 'white' } }} InputLabelProps={{ style: { color: 'black' } }} value={key} onChange={handleInputChange}    placeholder="Key" label="Key" variant="filled" fullWidth required autoComplete='off' />
                 </Grid>
-              </Grid>
-
+            </Grid>
+              
             </form>
      
     </Grid>
@@ -175,14 +147,12 @@ const cancelhandel = (e)=>{
 
     
 
-      <Fab icon={<SettingsIcon/>} style={{ position: "fixed", bottom: 0, right: 0}} alwaysShowTitle={false}>
 
                   
-            <Action text="Add Customer" style={{backgroundColor: '#2065D1'}} onClick={opensessame}>
+            <Action text="Add Credentials" style={{backgroundColor: '#2065D1',position:"absolute",left:"95%",marginTop:"20px"}} onClick={opensessame}>
               <AddIcon />
             </Action>
 
-              </Fab>
     </>
   );
 };
