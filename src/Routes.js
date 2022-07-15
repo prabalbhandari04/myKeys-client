@@ -20,7 +20,7 @@ function Routes() {
                 
             <Route path="/" component={Home} exact />
                 <Route path="/login" component={isLogged ? NotFound : AccountBox} exact />
-                <Route path="/dashboard" component={Dashboard} exact />
+                <Route path="/dashboard" component={isLogged ? Dashboard : Authorization} exact />
                 <Route path="/forgot_password" component={isLogged ? NotFound : ForgotPass} exact />
                 <Route path="/user/reset/:token" component={isLogged ? NotFound : ResetPass} exact />
                 <Route path="/user/activate/:activation_token" component={ActivationEmail} exact />
