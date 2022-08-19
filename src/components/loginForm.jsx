@@ -68,11 +68,10 @@ export function LoginForm(props) {
               <input  type='text' placeholder="Enter email address" id="email" value={email} name="email" onChange={handleChangeInput}/>
               <input type="password" placeholder="Enter password" id="password" value={password} name="password" onChange={handleChangeInput} />
               <button  className="loginButton" type="submit">LOGIN</button>
-             
           </form>
             
-          <MutedLink href="#">Forget your password?</MutedLink>
-              <MutedLink href="#">
+          <MutedLink href="/forgot_password">Forget your password?</MutedLink>
+              <MutedLink href="/register">
                 Don't have an account?{" "}
                 <BoldLink href="#" onClick={switchToSignup}>
                   Register

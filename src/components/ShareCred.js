@@ -33,35 +33,27 @@ const initialState = {
 
 
 const ShareCred = ({CredId}) => {
-  const auth = useSelector(state => state.auth)
-  const {user} = auth
-  console.log(CredId)
+
     const [open, setOpen] = useState(false);
+    const [data, setData] = useState(initialState)
 
-    //organization name and description
-    const [cred, setCred] = useState(initialState)
-    const {email, err, success} = cred
+    const {email, err, success} = data
 
-    const handleInputChange = e => {
-      const {name, value} = e.target
-      setCred({...cred, [name]:value, err: '', success: ''})
-  }
+    const handleChangeInput = e => {
+        const {name, value} = e.target
+        setData({...data, [name]:value, err: '', success: ''})
+    }
 
-  
+    const ShareCred = async () => {
+        
+        try {
+            const res = await axios.post('/cred/share/'+CredId, {email})
 
-  const handleSubmit = async e => {
-      e.preventDefault()
-      try {
-          const res = await axios.post('/cred/share/'+CredId, {email : 'rupeshdevkota1@gmail.com'})
-          alert('Cred Shared Successfully.Please Check your email.')
-          setCred({...cred, err: '', success: res.data.msg})
-
-
-      } catch (err) {
-          err.response.data.msg && 
-          setCred({...cred, err: err.response.data.msg, success: ''})
-      }
-  }
+            return setData({...data, err: '', success: res.data.msg})
+        } catch (err) {
+            err.response.data.msg && setData({...data, err:  err.response.data.msg, success: ''})
+        }
+    }
 
   const opensessame = () =>{ 
     handleClickOpen()
@@ -103,34 +95,19 @@ const cancelhandel = (e)=>{
         <Grid>
 
         <Typography variant="body2" style={{color: 'white'}} component="p" gutterBottom>
-          
           </Typography> 
-          {err && showErrMsg(err)}
-          {success && showSuccessMsg(success)}
-                <form id="customer-form-id" onSubmit={handleSubmit}>
-            <Grid container spacing={1} style={{color: 'white'}}>
+          <div className="row">
+                {err && showErrMsg(err)}
+                {success && showSuccessMsg(success)}
 
-                <Grid item xs={12}>
-                    <TextField name="Email" sx={{ input: { color: 'black', background: 'white' } }} InputLabelProps={{ style: { color: 'black' } }} onChange={handleInputChange}    placeholder="Email" label="Email" variant="filled" fullWidth required autoComplete='off' />
-                </Grid>
-            </Grid>
-              
-            </form>
-     
+                <label htmlFor="email">Enter your email address</label>
+                <input type="email" name="email" id="email" value={email}
+                onChange={handleChangeInput} />
+                <button onClick={ShareCred}>Share</button>
+          </div>
     </Grid>
 
         </DialogContent>
-        <DialogActions>
-
-          <Button onClick={cancelhandel} style={{color: 'white'}}>Cancel</Button>
-
-          <Button type="submit" form="customer-form-id" style={{color: '#00A7E3'}} autoFocus>
-            Share
-          </Button>
-
-
-
-        </DialogActions>
       </Dialog>
                   
             <Action text="Add Credentials" style={{backgroundColor: 'black',height : '27px',width: "27px",zIndex: 'tooltip'}} onClick={opensessame}>

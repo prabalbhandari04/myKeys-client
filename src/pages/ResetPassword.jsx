@@ -32,7 +32,7 @@ function ResetPassword() {
             return setData({...data, err: "Password did not match.", success: ''})
         
         try {
-            const res = await axios.post('https://mykeys.onrender.com/user/reset', {password}, {
+            const res = await axios.post('/user/reset', {password}, {
                 headers: {Authorization: token}
             })
 

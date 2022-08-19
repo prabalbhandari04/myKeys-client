@@ -80,9 +80,9 @@ function Footer() {
         <SocialMediaWrap>
           <SocialLogo to='/'>
             <SocialIcon />
-            myKeys
+            Project KMS
           </SocialLogo>
-          <WebsiteRights>myKeys © 2020</WebsiteRights>
+          <WebsiteRights>Project KMS © 2020</WebsiteRights>
           <SocialIcons>
             <SocialIconLink href='/' target='_blank' aria-label='Facebook'>
               <FaFacebook />

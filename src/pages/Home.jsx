@@ -27,8 +27,8 @@ export const homeObjOne = {
     lightTopLine: false,
     lightText: false,
     lightTextDesc: false,
-    topLine: 'Instant Setup',
-    headline: 'Extremely quick onboarding process',
+    topLine: 'SSHL Engine',
+    headline: 'Secure Keys with SSHL Engine',
     description:
       "Once you've joined, our team of specialist will reach out to you and get you set up in minutes.",
     buttonLabel: 'Learn More',
@@ -46,9 +46,9 @@ export const homeObjOne = {
     lightTextDesc: false,
     topLine: 'Work Smart',
     headline:
-      'myKeys helps  increase the revenue by over 3X in less than 3 months!',
+      'Project KMS helps  increase the revenue by over 3X in less than 3 months!',
     description:
-      "Using Methologys like Deep Learning, Machine Learning, and Natural Language Processing, myKeys can help you increase your revenue by over 3X in less than 3 months!",
+      "Using Methologys like Deep Learning, Machine Learning, and Natural Language Processing, Project KMS can help you increase your revenue by over 3X in less than 3 months!",
     buttonLabel: 'View Case Study',
     imgStart: 'start',
     img: require('../assets/profile.png'),

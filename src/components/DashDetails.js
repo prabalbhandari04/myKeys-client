@@ -13,7 +13,7 @@ const DashDetails = () => {
     const [data, setData] = useState([]);
 
     useEffect(() => {
-      fetch('https://mykeys.onrender.com/cred/get')
+      fetch('https://Project KMS.onrender.com/cred/get')
       .then( res => {
           return res.json();
       })
