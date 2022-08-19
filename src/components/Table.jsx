@@ -13,6 +13,7 @@ import {
 } from '@mui/material';
 import {useSelector} from 'react-redux'
 import axios from 'axios'
+import ShareCred from '../components/ShareCred';
 
 const initialState = {
   title : "",
@@ -43,14 +44,6 @@ function TableDetails() {
     }
   }
   
-  const shareCred = async (id) => {
-    try {
-      const res = await axios.post('/cred/share/'+id, {email : 'prabalb046348@gmail.com'})
-      alert("Credentials Shared.")
-    } catch (err) {
-      console.log(err)
-    }
-  }
 
   return (
           <div >
@@ -100,8 +93,9 @@ function TableDetails() {
                                     <TableCell align="left">{item?.title === null ? null : item.title}</TableCell>
                                     <TableCell align="left">{item?.url === null ? null : item.url}</TableCell>
                                     <TableCell align="left">{item?.key === null ? null : item.key}</TableCell>
-                                    <TableCell align="left"><i class="fa fa-share" aria-hidden="true"><button>Share</button></i></TableCell>
-                                    <TableCell align="left"><i class="fa fa-trash" aria-hidden="true"><button>Delete</button></i></TableCell>
+                                    <TableCell align="left"><ShareCred CredId={item._id}/></TableCell>
+                                    <TableCell align="left"><i style={{height : '25px',width: "25px",color:"red"}} class="fa fa-trash" aria-hidden="true"><button onClick={() => deleteCred(item._id)}></button></i></TableCell>
+                                    
                                   </TableRow>
                                     )
                                   })}
