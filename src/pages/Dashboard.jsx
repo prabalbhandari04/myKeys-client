@@ -22,34 +22,7 @@ function Dashboard() {
 
     return (
         <div >
-                <div >
-                <Container maxWidth={'lg'}>
-
-                    <Typography  variant="h3" component="h1" paragraph>
-                        Your Credentials
-                        </Typography>
-                        <TableHead>
-                    <TableRow>
-                        <TableCell style={{ width: 350 }}>
-                          Title
-                        </TableCell >
-                        <TableCell style={{ width: 350 }}>
-                          Url
-                        </TableCell>
-                        <TableCell style={{ width: 350 }}>
-                         Key
-                        </TableCell>
-                        <TableCell style={{ width: 350 }}>
-                         Share
-                        </TableCell>
-                        <TableCell style={{ width: 350 }}>
-                         Delete
-                        </TableCell>
-                    </TableRow>
-                </TableHead>
-                        <TableDetails/>
-                    </Container>
-            </div>
+            <TableDetails/>
             <AddCred />
         </div>
     )
