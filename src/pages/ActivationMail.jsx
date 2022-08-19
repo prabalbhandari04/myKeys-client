@@ -12,7 +12,7 @@ function ActivationEmail() {
         if(activation_token){
             const activationEmail = async () => {
                 try {
-                    const res = await axios.post('https://mykeys.onrender.com/user/activation', {activation_token})
+                    const res = await axios.post('/user/activation', {activation_token})
                     setSuccess(res.data.msg)
                 } catch (err) {
                     err.response.data.msg && setErr(err.response.data.msg)

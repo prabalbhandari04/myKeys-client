@@ -39,7 +39,8 @@ function Navbar() {
 
   const handleLogout = async () => {
       try {
-          await axios.get('https://mykeys.onrender.com/user/logout')
+          await axios.get('/user/logout')
+          alert("User Logged Out.")
           localStorage.removeItem('firstLogin')
           window.location.href = "/";
       } catch (err) {
@@ -49,7 +50,7 @@ function Navbar() {
 
     const userLink = () => {
       return <Dropdown>
-          <Dropdown><Link to="/dashboard"><Button primary>DashBoard</Button></Link></Dropdown>
+          <Dropdown><Link to="/dashboard"><Button primary>{user.name}'s DashBoard</Button></Link></Dropdown>
           <Dropdown><Button onClick={handleLogout} primary>Logout</Button></Dropdown>
           
       </Dropdown>

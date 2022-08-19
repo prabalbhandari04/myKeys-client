@@ -23,6 +23,7 @@ import Select from '@mui/material/Select';
 import InputLabel from '@mui/material/InputLabel';
 //-------------------------------------------
 import axios from 'axios';
+import { useSelector, useDispatch } from "react-redux";
 
 const initialState = {
   title: '',
@@ -34,9 +35,8 @@ const initialState = {
 
 
 const AddCred = () => {
-
-
-
+  const auth = useSelector(state => state.auth)
+  const {user} = auth
 
     const [open, setOpen] = useState(false);
 
@@ -54,7 +54,8 @@ const AddCred = () => {
   const handleSubmit = async e => {
       e.preventDefault()
       try {
-          const res = await axios.post('https://mykeys.onrender.com/cred/add', {title,url,key})
+          const res = await axios.post(`/cred/${user._id}`, {title,url,key})
+          alert('Cred Added Succesfully.')
           setCred({...cred, err: '', success: res.data.msg})
 
 

@@ -12,14 +12,15 @@ function App() {
   const dispatch = useDispatch()
   const token = useSelector(state => state.token)
   const auth = useSelector(state => state.auth)
-  const {isLogged} = auth
+  const {isLogged,user} = auth
 
   useEffect(() => {
     const firstLogin = localStorage.getItem('firstLogin')
     if(firstLogin){
       const getToken = async () => {
-        const res = await axios.post('https://mykeys.onrender.com/user/refresh_token', null)
+        const res = await axios.post('/user/refresh_token', null)
         dispatch({type: 'GET_TOKEN', payload: res.data.access_token})
+        console.log("persist")
       }
       getToken()
     }
@@ -29,7 +30,6 @@ function App() {
     if(token){
       const getUser = () => {
         dispatch(dispatchLogin())
-
         return fetchUser(token).then(res => {
           dispatch(dispatchGetUser(res))
         })
